@@ -26,25 +26,25 @@ public abstract class TestBase {
 		protected ExtentHtmlReporter htmlReporter;
 		protected ExtentTest extentLogger;
 
-//		@BeforeTest
-//		public void setUpTest() {
-//			// actual reporter
-//			report = new ExtentReports();
-//			// System.getProperty("user.dir") ---> get the path to current project
-//			// test-output --> folder in the current project, will be created by testng if
-//			// it does not already exist
-//			// report.html --> name of the report file
-//			String filePath = System.getProperty("user.dir") + "/test-output/report.html";
-//			htmlReporter = new ExtentHtmlReporter(filePath);
-//
-//			report.attachReporter(htmlReporter);
-//
-//			report.setSystemInfo("ENV", "staging");
-//			report.setSystemInfo("browser", ConfigurationReader.getProperty("browser"));
-//			report.setSystemInfo("OS", System.getProperty("os.name"));
-//
-//			htmlReporter.config().setReportName("Web Orders Automated Test Reports");
-//		}
+		@BeforeTest
+		public void setUpTest() {
+			// actual reporter
+			report = new ExtentReports();
+			// System.getProperty("user.dir") ---> get the path to current project
+			// test-output --> folder in the current project, will be created by testng if
+			// it does not already exist
+			// report.html --> name of the report file
+			String filePath = System.getProperty("user.dir") + "/test-output/report.html";
+			htmlReporter = new ExtentHtmlReporter(filePath);
+
+			report.attachReporter(htmlReporter);
+
+			report.setSystemInfo("ENV", "staging");
+			report.setSystemInfo("browser", ConfigurationReader.getProperty("browser"));
+			report.setSystemInfo("OS", System.getProperty("os.name"));
+
+			htmlReporter.config().setReportName("Web Orders Automated Test Reports");
+		}
 
 		@BeforeMethod(alwaysRun = true)
 		public void setUp() {

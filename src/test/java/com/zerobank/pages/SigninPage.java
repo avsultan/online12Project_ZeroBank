@@ -10,7 +10,7 @@ public class SigninPage {
 
 	
 	public SigninPage() {
-		PageFactory.initElements(Driver.getDriver(), this);	
+		PageFactory.initElements(Driver.getDriver(), this);
 	}
 	
 	@FindBy(id="signin_button")
