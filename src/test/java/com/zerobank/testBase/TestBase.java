@@ -1,4 +1,4 @@
-package com.zerobank.tests;
+package com.zerobank.testBase;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -51,7 +51,8 @@ public abstract class TestBase {
 			driver = Driver.getDriver();
 			actions = new Actions(driver);
 			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-			driver.manage().window().fullscreen();
+			driver.manage().window().maximize();
+			//driver.manage().window().fullscreen();
 
 			driver.get(ConfigurationReader.getProperty("url"));
 
@@ -71,7 +72,7 @@ public abstract class TestBase {
 
 		@AfterTest
 		public void tearDownTest() {
-		//	report.flush();
+			report.flush();
 		}
 
 	}
