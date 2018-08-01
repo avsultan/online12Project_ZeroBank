@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -24,9 +25,8 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BrowserUtils {
-	/*
-	 * switches to new window by the exact title
-	 */
+	
+	
 	public static void switchToWindow(String targetTitle) {
 		String origin = Driver.getDriver().getWindowHandle();
 		for (String handle : Driver.getDriver().getWindowHandles()) {
@@ -37,19 +37,14 @@ public class BrowserUtils {
 		}
 		Driver.getDriver().switchTo().window(origin);
 	}
+	
 
 	public static void hover(WebElement element) {
 		Actions actions = new Actions(Driver.getDriver());
 		actions.moveToElement(element).perform();
 	}
-
-	/**
-	 * return a list of string from a list of elements ignores any element with no
-	 * text
-	 * 
-	 * @param list
-	 * @return
-	 */
+	
+	
 	public static List<String> getElementsText(List<WebElement> list) {
 		List<String> elemTexts = new ArrayList<>();
 		for (WebElement el : list) {
@@ -59,6 +54,7 @@ public class BrowserUtils {
 		}
 		return elemTexts;
 	}
+	
 
 	public static List<String> getElementsText(By locator) {
 
@@ -72,6 +68,7 @@ public class BrowserUtils {
 		}
 		return elemTexts;
 	}
+	
 
 	public static void waitFor(int sec) {
 		try {
@@ -80,26 +77,31 @@ public class BrowserUtils {
 			e.printStackTrace();
 		}
 	}
+	
 
 	public static WebElement waitForVisibility(WebElement element, int timeToWaitInSec) {
 		WebDriverWait wait = new WebDriverWait(Driver.getDriver(), timeToWaitInSec);
 		return wait.until(ExpectedConditions.visibilityOf(element));
 	}
+	
 
 	public static WebElement waitForVisibility(By locator, int timeout) {
 		WebDriverWait wait = new WebDriverWait(Driver.getDriver(), timeout);
 		return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 	}
+	
 
 	public static WebElement waitForClickablility(WebElement element, int timeout) {
 		WebDriverWait wait = new WebDriverWait(Driver.getDriver(), timeout);
 		return wait.until(ExpectedConditions.elementToBeClickable(element));
 	}
+	
 
 	public static WebElement waitForClickablility(By locator, int timeout) {
 		WebDriverWait wait = new WebDriverWait(Driver.getDriver(), timeout);
 		return wait.until(ExpectedConditions.elementToBeClickable(locator));
 	}
+	
 
 	public static void waitForPageToLoad(long timeOutInSeconds) {
 		ExpectedCondition<Boolean> expectation = new ExpectedCondition<Boolean>() {
@@ -116,10 +118,12 @@ public class BrowserUtils {
 					"Timeout waiting for Page Load Request to complete after " + timeOutInSeconds + " seconds");
 		}
 	}
+	
 
 	public static WebElement fluentWait(final WebElement webElement, int timeinsec) {
 		FluentWait<WebDriver> wait = new FluentWait<WebDriver>(Driver.getDriver())
-				.withTimeout(timeinsec, TimeUnit.SECONDS).pollingEvery(timeinsec, TimeUnit.SECONDS)
+				.withTimeout(timeinsec, TimeUnit.SECONDS)
+				.pollingEvery(2, TimeUnit.SECONDS)
 				.ignoring(NoSuchElementException.class);
 		WebElement element = wait.until(new Function<WebDriver, WebElement>() {
 			public WebElement apply(WebDriver driver) {
@@ -128,6 +132,7 @@ public class BrowserUtils {
 		});
 		return element;
 	}
+	
 	
 	public static String getScreenshot(String name) throws IOException {
         String date= new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
@@ -140,5 +145,15 @@ public class BrowserUtils {
         FileUtils.copyFile(source, finalDestination);
         return target;
 }
+	
+	
+	public static String trimBetweenChracters(String input, String character) {
+		String[] result = input.split(character);
+		for (int i = 0; i < result.length; i++) {
+			result[i] = result[i].trim();
+		}
+		return Arrays.asList(result).toString();
+	}
+	
 
 }

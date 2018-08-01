@@ -1,9 +1,14 @@
 package com.zerobank.pages;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import com.zerobank.pages.AccountPage;
+import com.zerobank.utilities.ConfigurationReader;
 import com.zerobank.utilities.Driver;
 
 public class LoginPage {
@@ -24,13 +29,29 @@ public class LoginPage {
 	@FindBy(xpath = "//h3[.='Log in to ZeroBank']")
 	public WebElement LogInToZeroBankText;
 	
-	@FindBy(xpath = "//*[@id=\"settingsBox\"]/ul/li[3]/a")
-	public WebElement profileBox;
+	@FindBy(xpath = "//h3[.='Troubles entering the site?']")
+	public WebElement troublesEnetringTheSiteText;
 	
-	public void signin(String username, String password) {
-		new HomePage().signinButton.click();
-		loginInputBox.sendKeys(username);
-		passwordInputBox.sendKeys(password);
-		submitButton.click();
+	@FindBy(xpath = "//div[@class='alert alert-error']")
+	public WebElement loginPasswordAreWrongText;
+	
+	public void login(String username, String password) {
+		LoginPage loginPage = new LoginPage();
+		HomePage homePage = new HomePage();
+		assertEquals(Driver.getDriver().getTitle(), "Zero - Personal Banking - Loans - Credit Cards");
+		homePage.signinButton.click();
+		assertEquals(Driver.getDriver().getTitle(), "Zero - Log in");
+		assertTrue(loginPage.LogInToZeroBankText.isDisplayed());
+		loginPage.loginInputBox.sendKeys(ConfigurationReader.getProperty("username"));
+		loginPage.passwordInputBox.sendKeys(ConfigurationReader.getProperty("password"));
+		loginPage.submitButton.click();
+		assertEquals(Driver.getDriver().getTitle(), "Zero - Account Summary");
+		assertEquals(new AccountPage().profileBox.getText().trim(), "username");
+	}
+	
+	public void logout() {
+		new AccountPage().profileBox.click();
+		new AccountPage().logout.click();
+		assertEquals(Driver.getDriver().getTitle(), "Zero - Personal Banking - Loans - Credit Cards");
 	}
 }

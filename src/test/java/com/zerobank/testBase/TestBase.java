@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.ITestResult;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
@@ -26,7 +27,7 @@ public abstract class TestBase {
 		protected ExtentHtmlReporter htmlReporter;
 		protected ExtentTest extentLogger;
 
-		@BeforeTest
+		/*@BeforeTest
 		public void setUpTest() {
 			// actual reporter
 			report = new ExtentReports();
@@ -44,7 +45,7 @@ public abstract class TestBase {
 			report.setSystemInfo("OS", System.getProperty("os.name"));
 
 			htmlReporter.config().setReportName("Web Orders Automated Test Reports");
-		}
+		}*/
 
 		@BeforeMethod(alwaysRun = true)
 		public void setUp() {
@@ -53,12 +54,10 @@ public abstract class TestBase {
 			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 			driver.manage().window().maximize();
 			//driver.manage().window().fullscreen();
-
 			driver.get(ConfigurationReader.getProperty("url"));
-
 		}
 
-		@AfterMethod(alwaysRun = true)
+		/*@AfterMethod(alwaysRun = true)
 		public void tearDown(ITestResult result) throws IOException {
 			if (result.getStatus() == ITestResult.FAILURE) {
 				extentLogger.fail(result.getName());
@@ -67,12 +66,17 @@ public abstract class TestBase {
 			} else if (result.getStatus() == ITestResult.SKIP) {
 				extentLogger.skip("Test Case Skipped is " + result.getName());
 			}
-			Driver.closeDriver();
-		}
+			//Driver.closeDriver();
+		}*/
 
-		@AfterTest
+		/*@AfterTest
 		public void tearDownTest() {
 			report.flush();
+		}*/
+		
+		@AfterClass
+		public void end() {
+			Driver.closeDriver();
 		}
 
 	}
