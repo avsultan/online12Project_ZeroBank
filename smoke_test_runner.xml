@@ -2,9 +2,9 @@
 <suite name="Smoke test" verbose="2">
 
 	<test name="SmokeTest">
-		<packages>
-			<package name="com.zerobank.tests"/>
-		</packages>
+		<classes>
+			<class name="com.zerobank.tets.SmokeTest"></class>
+		</classes>
 	</test>
 
 </suite>

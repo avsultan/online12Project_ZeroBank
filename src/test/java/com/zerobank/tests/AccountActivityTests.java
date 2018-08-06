@@ -4,6 +4,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 import java.util.List;
+import java.util.Random;
 
 import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.Test;
@@ -23,9 +24,15 @@ public class AccountActivityTests extends TestBase {
 		new AccountActivityPage().goToAccountActivityPage();
 		TC001();
 		TC002();
+		TC003();
+		TC004();
+		TC005();
+		TC006();
 	}
 	
+	//@Test
 	public void TC001() {
+		//new AccountActivityPage().goToAccountActivityPage();
 		Select accountType = new Select(accActPage.accountTypeBox);
 		assertEquals(Driver.getDriver().getTitle(), "Zero - Account Activity");
 		assertTrue(accActPage.showTransactionsText.isDisplayed());
@@ -37,7 +44,9 @@ public class AccountActivityTests extends TestBase {
 		assertEquals(bu.trimBetweenChracters(bu.getElementsText(accActPage.tableRow3).toString(), ",").replaceAll("[^0-9a-zA-Z., #-]", ""), "2012-09-01, ONLINE TRANSFER REF #UKKSDRQG6L, 1000");
 	}
 	
+	//@Test
 	public void TC002() {
+//      new AccountActivityPage().goToAccountActivityPage();
 		Select accountType = new Select(accActPage.accountTypeBox);
 		assertEquals(Driver.getDriver().getTitle(), "Zero - Account Activity");
 		assertTrue(accActPage.showTransactionsText.isDisplayed());
@@ -48,6 +57,73 @@ public class AccountActivityTests extends TestBase {
 		assertEquals(bu.trimBetweenChracters(bu.getElementsText(accActPage.tableRow1).toString(), ",").replaceAll("[^0-9a-zA-Z., #-]", ""), "2012-09-06, CHECK DEPOSIT, 186.7");
 		assertEquals(bu.trimBetweenChracters(bu.getElementsText(accActPage.tableRow2).toString(), ",").replaceAll("[^0-9a-zA-Z., #-]", ""), "2012-09-05, TELECOM, 99.6");
 		assertEquals(bu.trimBetweenChracters(bu.getElementsText(accActPage.tableRow3).toString(), ",").replaceAll("[^0-9a-zA-Z., #-]", ""), "2012-09-01, CAR PAYMENT, 1548");
+	}
+	
+	//@Test
+	public void TC003() {
+		//new AccountActivityPage().goToAccountActivityPage();
+		Select accountType = new Select(accActPage.accountTypeBox);
+		assertEquals(Driver.getDriver().getTitle(), "Zero - Account Activity");
+		assertTrue(accActPage.showTransactionsText.isDisplayed());
+		accountType.selectByVisibleText("Savings");
+		assertTrue(accActPage.transactionDetails.isDisplayed());
+		
+	}
+	
+	//@Test
+	public void TC004() {
+		//new AccountActivityPage().goToAccountActivityPage();
+		Select accountType = new Select(accActPage.accountTypeBox);
+		assertEquals(Driver.getDriver().getTitle(), "Zero - Account Activity");
+		assertTrue(accActPage.showTransactionsText.isDisplayed());
+		accountType.selectByVisibleText("Loan");
+		assertTrue(accActPage.transactionDetails.isDisplayed());
+	}
+	
+	//@Test
+	public void TC005() {
+		//new AccountActivityPage().goToAccountActivityPage();
+		Select accountType = new Select(accActPage.accountTypeBox);
+		assertEquals(Driver.getDriver().getTitle(), "Zero - Account Activity");
+		assertTrue(accActPage.showTransactionsText.isDisplayed());
+		accountType.selectByVisibleText("Credit Card");
+		assertTrue(accActPage.transactionDetails.isDisplayed());
+	}
+	
+	
+	//@Test
+	public void TC006() {
+		//new AccountActivityPage().goToAccountActivityPage();
+		Select accountType = new Select(accActPage.accountTypeBox);
+		assertEquals(Driver.getDriver().getTitle(), "Zero - Account Activity");
+		assertTrue(accActPage.showTransactionsText.isDisplayed());
+		accountType.selectByVisibleText("Brokerage");
+		assertTrue(accActPage.transactionDetails.isDisplayed());
+	}
+	
+	
+	@Test
+	public void TC007() {
+		
+		new AccountActivityPage().goToAccountActivityPage();
+		accActPage.findTransactonsTab.click();
+		//accActPage.showTransactionsTab.click();
+		accActPage.descriptionField.sendKeys("Online Transfer");
+
+		accActPage.datesFromField.click();
+		accActPage.calendar.get(new Random().nextInt(34)+1).click();
+		accActPage.datesToFielsd.click();
+		accActPage.calendar.get(new Random().nextInt(34)+1).click();
+		
+		accActPage.amountsFrom.sendKeys(""+new Random().nextInt(10000));
+		accActPage.amountsTo.sendKeys(""+ new Random().nextInt(20000));
+		
+		Select selectType = new Select(accActPage.transactionType);
+		selectType.selectByIndex(new Random().nextInt(3));
+		
+		accActPage.findButton.click();
+		new BrowserUtils().waitFor(2);
+		assertTrue(accActPage.resultTransDetails.isDisplayed());
 	}
 	
 	
