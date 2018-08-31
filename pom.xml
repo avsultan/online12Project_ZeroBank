@@ -54,8 +54,8 @@
 				<version>2.21.0</version>
 				<configuration>
 					<suiteXmlFiles>
-						<!-- <suiteXmlFile>testRunner_SmokeTest.xml</suiteXmlFile> -->
-						<suiteXmlFile>testRunner_Login.xml</suiteXmlFile>
+						<suiteXmlFile>testRunner_SmokeTest.xml</suiteXmlFile>
+						<!-- <suiteXmlFile>testRunner_Login.xml</suiteXmlFile> -->
 						<!-- <suiteXmlFile>testRunner_OnlineStatements</suiteXmlFile> -->
 						<!-- <suiteXmlFile>testRunner_AccountActivity.xml</suiteXmlFile> -->
 						<!-- <suiteXmlFile>testRunner_AccountSummary.xml</suiteXmlFile> -->
